@@ -1,0 +1,27 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore virtual environments
+.venv/
+.venv310/
+
+# Ignore IDE
+.idea/
+*.iml
+
+# Ignore backups
+backup/
+
+# Ignore large data artifacts
+notebooks/*.npy
+notebooks/*.pth
+notebooks/*.npz
+notebooks/*.png
+notebooks/*.txt
+
+# Ignore audio data
+feedback/feedback_audios/
+
+# System files
+.DS_Store
