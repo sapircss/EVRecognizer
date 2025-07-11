@@ -59,6 +59,105 @@ EVRecognizer/
 - **notebooks/**: Contains trained model weights, confusion matrices, training history files, and summary plots (`summary.png`).
 
 ---
+## 🤖 Model Architecture & Mathematical Explanation
+### Overall Design
+The EVRecognizer system uses a 2D Convolutional Neural Network (CNN) to classify emotions from short speech audio clips.
+The input to the model is a combined feature map of Mel-Frequency Cepstral Coefficients (MFCCs) and their delta (temporal derivative) features.
+
+In this project, mathematical foundations from signal processing (MFCC and delta features) are combined with modern deep learning (CNN, cross-entropy loss) to create a robust emotion recognition system that can handle real-world, noisy mental health call data.
+
+## Audio Feature Extraction
+**Mel-Frequency Cepstral Coefficients (MFCC)** 
+MFCCs transform raw audio into a representation that captures perceptually relevant spectral information.
+
+**Spectrogram (STFT):**
+
+<img src="MathFormulas/Spectrogram (Short-Time Fourier Transform).png" alt="Spectrogram (STFT)" width="300"/>
+
+**Mel Filter Bank:**
+
+<img src="MathFormulas/Mel Filter Bank.png" alt="Mel Filter Bank" width="300"/>
+
+**Log Energy:** 
+
+<img src="MathFormulas/Log Energy.png" alt="Log Energy" width="300"/>
+
+**Discrete Cosine Transform (DCT):** 
+
+<img src="MathFormulas/Discrete Cosine Transform (DCT).png" alt="Discrete Cosine Transform" width="300"/>
+
+## Delta Features
+Delta coefficients represent how MFCCs change over time.
+
+<img src="MathFormulas/Delta Features.png" alt="Delta Features" width="200"/>
+
+The final feature map combines MFCCs and delta features, resulting in an 80 × 130 feature shape per sample (stacked as [40 MFCC + 40 delta] by 130 frames).
+
+## 🏗️ CNN Architecture
+The model is designed to learn hierarchical local patterns from these feature maps.
+**Layers**
+**Conv2D Layer 1:** 
+Input channels: 1
+Output channels: 32
+Kernel size: 3×3
+Activation: ReLU
+Followed by Max Pooling 2×2
+
+**Conv2D Layer 2** 
+Input channels: 32
+Output channels: 64
+Kernel size: 3×3
+Activation: ReLU
+Followed by Max Pooling 2×2
+
+**Conv2D Layer 3**
+Input channels: 64
+Output channels: 128
+Kernel size: 3×3
+Activation: ReLU
+Followed by Max Pooling 2×2
+
+**Dropout Layer**
+Dropout rate: 0.5
+Fully Connected (Linear) Layer
+Input: Flattened features (128 × 10 × 16)
+Output: Number of emotion classes (5)
+
+
+## 🎯 Loss Function
+The model uses weighted cross-entropy loss to address class imbalance.
+<img src="MathFormulas/cross-entropy loss.png" alt="Loss Function" width="300"/>
+
+Where:
+
+C = number of classes (5 in this project).
+
+w_i = class weight for class i.
+
+y_i = true label indicator (1 if class i, else 0).
+
+p̂_i = predicted probability for class i.
+
+
+## ⚖️ Feature Normalization
+All extracted features are standardized before entering the CNN.
+<img src="MathFormulas/features standardized.png" alt="Feature Normalization" width="300"/>
+
+Where:
+
+x = feature value.
+
+μ = mean of feature (from training set).
+
+σ = standard deviation.
+
+## ✅ Prediction Rule
+After the softmax layer, the predicted class is chosen as:
+<img src="MathFormulas/ Final Prediction.png" alt="Prediction Rule" width="300"/>
+
+
+---
+
 
 ## ⚙️ Setup & Installation
 
