@@ -80,7 +80,7 @@ MFCCs transform raw audio into a representation that captures perceptually relev
 
 **Log Energy:** 
 
-<img src="MathFormulas/Log Energy.png" alt="Log Energy" width="300"/>
+<img src="MathFormulas/Log Energy.png" alt="Log Energy" width="200"/>
 
 **Discrete Cosine Transform (DCT):** 
 
@@ -89,7 +89,8 @@ MFCCs transform raw audio into a representation that captures perceptually relev
 ## Delta Features
 Delta coefficients represent how MFCCs change over time.
 
-<img src="MathFormulas/Delta Features.png" alt="Delta Features" width="200"/>
+<img src="MathFormulas/DeltaFeatures.png" alt="Delta Features" width="305"/>
+
 
 The final feature map combines MFCCs and delta features, resulting in an 80 × 130 feature shape per sample (stacked as [40 MFCC + 40 delta] by 130 frames).
 
